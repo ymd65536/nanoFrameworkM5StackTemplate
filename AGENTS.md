@@ -238,6 +238,16 @@ nuget restore "c:\Users\Yamada\Desktop\NFApp2\NFApp2\NFApp2.sln"
 
 ## トラブルシューティング
 
+### 廃止となったパッケージ
+
+2026年4月現在、`nanoFramework.M5Stack`は廃止されており、代わりに`
+nanoFramework.M5Core`を使用することが推奨されています。
+
+- [nanoFramework.M5Stack](https://www.nuget.org/packages/nanoFramework.M5Stack/)
+  - 廃止されたパッケージ
+- [nanoFramework.M5Core](https://www.nuget.org/packages/nanoFramework.M5Core/)
+  - 推奨のパッケージ
+
 ### CS0103: 名前が現在のコンテキストに存在しません
 
 **エラーメッセージ：**
