@@ -103,10 +103,28 @@ VSCodeでは主にnanoffを使用してビルドやデプロイを行います�
 
 おおまかな流れは以下の通りです。
 
-1. シリアルポート番号（COM番号）の確認
-2. 拡張機能によるビルド
+1. 拡張機能によるビルド
+2. シリアルポート番号（COM番号）の確認
+3. nanoffでデプロイ
 
-## show serial port
+## Build
+
+VSCodeの拡張機能を使用してビルドするには、コマンドパレットを開いて、`nanoFramework: Build Project`を選択してください。
+
+ビルドする`sln`ファイルを選択するように求められます。プロジェクトのルートディレクトリにある`sln`ファイルを選択してください。
+
+`debug`や`release`などのビルド構成を選択するように求められます。通常は`debug`を選択してください。
+
+
+ビルドが成功すると、以下のファイルが生成されます：
+- `bin\Debug\NFApp2.exe` - 中間生成ファイル（M5Stackへのデプロイには使用できません）
+- `bin\Debug\NFApp2.pdbx` - デバッグシンボルファイル
+- `bin\Debug\` 配下の多数のDLLファイル - 依存ライブラリ
+
+**注意：** M5Stackへのデプロイには、VS Code拡張が生成する.binファイルが必要です。.exeファイルはM5Stackで動作しません
+
+
+## Show serial port
 
 デプロイ前に、接続されているM5Stackデバイスのシリアルポート番号を確認してください。
 
@@ -133,4 +151,46 @@ Copyright (C) 2019 .NET Foundation and nanoFramework project contributors
 
 -- Connected .NET nanoFramework devices --
 M5Core2 @ COM6
+```
+
+表示されているシリアルポート番号をデプロイの際に使用してください。
+
+## Deploy
+
+M5Stackのデプロイには、nanoffコマンドを使用します。VS Code拡張が生成した .bin ファイルをM5Stack デバイスにデプロイします。
+
+```bash
+nanoff --nanodevice --deploy --serialport COM6 --image .\bin\Debug\nanoFrameworkM5StackTemplate.bin
+```
+
+## Troubleshooting
+
+うまく動作しないあるいはデバイスの情報を確認することで問題の原因を特定できることがあります。以下のコマンドを実行して、デバイス情報を確認してください。
+
+なお、コマンドを実行するとデバイスがリセットされるため、デバイスがリセットされても問題ない状態で実行してください。
+
+```bash
+nanoff --serialport COM6 --identifyfirmware
+```
+
+実行結果
+
+```text
+.NET nanoFramework Firmware Flasher v2.5.143+9f97ac82d9
+Copyright (C) 2019 .NET Foundation and nanoFramework project contributors
+
+
+Reading details from chip...OK
+
+Connected to:
+ESP32 (ESP32-D0WDQ6-V3 (revision v3.1))
+Features Wi-Fi, BT, Dual Core + LP Core, 240MHz, Vref calibration in eFuse, Coding Scheme None
+Flash size 16MB unknown from  (manufacturer 0x46 device 0x1840)
+PSRAM: undetermined
+Crystal 40MHz
+MAC 3C:8A:1F:D6:0A:74
+
+
+Target 'ESP32_REV3' best matches the device characteristics.
+Target: ESP32_REV3
 ```

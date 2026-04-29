@@ -1,6 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
+using nanoFramework.M5Stack;
+using Console = nanoFramework.M5Stack.Console;
 
-Debug.WriteLine("Hello from nanoFramework!");
+M5Core.InitializeScreen();
+Console.Clear();
+
+Console.WriteLine("Hello from nanoFramework!");
 Thread.Sleep(Timeout.Infinite);
