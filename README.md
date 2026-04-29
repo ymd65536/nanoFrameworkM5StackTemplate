@@ -194,3 +194,47 @@ MAC 3C:8A:1F:D6:0A:74
 Target 'ESP32_REV3' best matches the device characteristics.
 Target: ESP32_REV3
 ```
+
+## About M5Stack Fire
+
+M5Stack Fireを動かす場合の注意点について記載します。
+
+### パッケージの競合について
+
+M5Stack Fireを使用する場合、`nanoFramework.M5Core`と`nanoFramework.Fire`パッケージの両方を同時に参照すると型の競合が発生します。
+
+具体的には、`Console`型が両方のパッケージに存在するため、以下のようなエラーが発生します：
+
+```text
+error CS0433: The type 'Console' exists in both 'nanoFramework.Fire, Version=1.1.288.0, Culture=neutral, PublicKeyToken=null' and 'nanoFramework.M5Core, Version=1.1.291.0, Culture=neutral, PublicKeyToken=c07d481e9758c731'
+```
+
+### 解決方法
+
+M5Stack Fireを使用する場合は、以下の対応が必要です：
+
+1. **`nanoFramework.M5Core`パッケージを削除する**
+   - `nanoFrameworkM5StackTemplate.nfproj`から`nanoFramework.M5Core`の参照を削除
+   - `packages.config`から`nanoFramework.M5Core`のエントリを削除
+
+2. **`nanoFramework.Fire`パッケージのみを使用する**
+   - プロジェクトファイルには`nanoFramework.Fire`パッケージの参照のみを残す
+
+3. **Program.csで正しい名前空間を使用する**
+   ```csharp
+   using nanoFramework.M5Stack;
+   using Console = nanoFramework.M5Stack.Console;
+   using Fire = nanoFramework.M5Stack.Fire;
+   ```
+
+4. **存在しない名前空間をインポートしない**
+   - `using nanoFramework.Fire;`という名前空間は存在しないため、記載しない
+   - `Fire`クラスは`nanoFramework.M5Stack`名前空間に含まれています
+
+### 正しいプロジェクト構成
+
+M5Stack Fire用のプロジェクトでは、以下の構成にしてください：
+
+- **nanoFrameworkM5StackTemplate.nfproj**: `nanoFramework.Fire`パッケージのみを参照
+- **packages.config**: `nanoFramework.Fire`パッケージのみを含める（`nanoFramework.M5Core`は含めない）
+- **Program.cs**: `nanoFramework.M5Stack`名前空間を使用
