@@ -201,13 +201,7 @@ M5Stack Fireを動かす場合の注意点について記載します。
 
 ### パッケージの競合について
 
-M5Stack Fireを使用する場合、`nanoFramework.M5Core`と`nanoFramework.Fire`パッケージの両方を同時に参照すると型の競合が発生します。
-
-具体的には、`Console`型が両方のパッケージに存在するため、以下のようなエラーが発生します：
-
-```text
-error CS0433: The type 'Console' exists in both 'nanoFramework.Fire, Version=1.1.288.0, Culture=neutral, PublicKeyToken=null' and 'nanoFramework.M5Core, Version=1.1.291.0, Culture=neutral, PublicKeyToken=c07d481e9758c731'
-```
+M5Stack Fireを使用する場合、`nanoFramework.M5Core`と`nanoFramework.Fire`パッケージの両方を同時に参照すると`nanoFramework.Fire`パッケージしかないメソッドやクラスが存在するため、ビルドエラーが発生します。※M5Coreが先に参照されるため
 
 ### 解決方法
 
