@@ -232,3 +232,24 @@ M5Stack Fire用のプロジェクトでは、以下の構成にしてくださ�
 - **nanoFrameworkM5StackTemplate.nfproj**: `nanoFramework.Fire`パッケージのみを参照
 - **packages.config**: `nanoFramework.Fire`パッケージのみを含める（`nanoFramework.M5Core`は含めない）
 - **Program.cs**: `nanoFramework.M5Stack`名前空間を使用
+
+
+## ビルド時の MSB3277 警告（バージョン競合）について
+
+ビルド時に nanoFramework.Graphics.Core などのライブラリでバージョンの不一致（MSB3277）が発生した場合は、以下の手順で依存関係をクリーンアップしてください。
+
+原因: nanoFramework.M5Core や Iot.Device.Ws28xx.Esp32 など、複数のライブラリが異なるバージョンの Graphics.Core を参照しているために発生します。
+
+対処法:NuGetパッケージの更新
+
+Visual Studio の NuGet マネージャーから、すべてのパッケージを最新バージョンに更新します。特に依存元となるコアライブラリのバージョンを揃えることが重要です。
+
+プロジェクトファイルの修正:
+
+.nfproj ファイルをテキストエディタで開き、<PropertyGroup> セクションに以下の設定を追加して、アセンブリのリダイレクトを有効にします。
+
+```xml
+<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+```
+
+ビルドキャッシュの削除としてVisual Studio を閉じ、プロジェクト直下の bin および obj フォルダを物理削除してから再ビルドを行ってください。
