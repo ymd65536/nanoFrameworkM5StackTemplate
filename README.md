@@ -195,6 +195,44 @@ Target 'ESP32_REV3' best matches the device characteristics.
 Target: ESP32_REV3
 ```
 
+### CS0518 エラー（基本型が見つからない）について
+
+ビルド時に以下のようなエラーが発生する場合があります：
+
+```text
+CSC : error CS0518: Predefined type 'System.Void' is not defined or imported
+CSC : error CS0518: Predefined type 'System.String' is not defined or imported
+```
+
+**原因:** `nanoFrameworkM5StackTemplate.nfproj` ファイル内の `mscorlib.dll` への参照パスが正しくないために発生します。
+
+**症状:** 
+- System.Void、System.String、System.Object などの基本型が見つからないというエラー
+- AssemblyInfo.cs 内のアトリビュート（AssemblyTitle、AssemblyVersion など）が見つからないエラー
+- System.Threading、System.Reflection などの名前空間が存在しないというエラー
+
+**解決方法:**
+
+`.nfproj` ファイルをテキストエディタで開き、`mscorlib` の参照パスを修正してください。
+
+**誤ったパス:**
+```xml
+<Reference Include="mscorlib">
+  <HintPath>packages\nanoFramework.CoreLibrary.2.0.0-preview.43\lib\mscorlib.dll</HintPath>
+</Reference>
+```
+
+**正しいパス:**
+```xml
+<Reference Include="mscorlib">
+  <HintPath>packages\nanoFramework.CoreLibrary.2.0.0-preview.43\lib\netnano1.0\mscorlib.dll</HintPath>
+</Reference>
+```
+
+パスに `\lib\netnano1.0\` を含める必要があります。CoreLibrary のバージョン番号は実際のプロジェクトに合わせて変更してください。
+
+修正後、プロジェクトを再ビルドしてください。
+
 ## About M5Stack Fire
 
 M5Stack Fireを動かす場合の注意点について記載します。
