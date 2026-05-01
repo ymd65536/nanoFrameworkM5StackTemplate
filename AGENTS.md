@@ -288,3 +288,23 @@ nanoFramework.Graphics 名前空間とSystem.Drawing名前空間が競合する�
 
 複数のnanoFramework系パッケージが競合する場合があります。
 この場合はSystemのパッケージを利用するようにし、nanoFrameworkのパッケージを削除するようにしてください。
+
+## IP5306の使用方法
+
+IP5306はM5Stackの電源管理ICで、バッテリーの充電や電源供給を制御します。
+サンプルコードは以下のようになります。
+
+```csharp
+using System.Device.I2c;
+using Iot.Device.Ip5306;
+
+I2cDevice i2cSettings = new(new I2cConnectionSettings(1, Ip5306.SecondaryI2cAddress));
+Ip5306 power = new(i2cSettings);
+```
+
+参考
+
+- [Ip5306 クラス](https://learn.microsoft.com/ja-jp/dotnet/api/iot.device.ip5306.ip5306?view=iot-dotnet-latest)
+- [Iot.Device.Ip5306](https://docs.nanoframework.net/devices/Iot.Device.Ip5306.Ip5306.html)
+- [IP5306 - Power management](https://github.com/nanoframework/nanoframework.IoT.Device/blob/main/devices/Ip5306/README.md/)
+- [I2cConnectionSettings クラス](https://learn.microsoft.com/ja-jp/dotnet/api/system.device.i2c.i2cconnectionsettings?view=iot-dotnet-latest)
