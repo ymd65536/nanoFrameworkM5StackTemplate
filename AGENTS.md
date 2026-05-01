@@ -313,6 +313,10 @@ Ip5306 power = new(i2cSettings);
 
 M5StackのユニットにはSk6812というLEDユニットがあります。
 
+- [RGB LED Unit (SK6812)– m5stack-store](https://docs.m5stack.com/en/unit/rgb)
+
+以下のコードはSk6812をM5StackのPORT Bに接続してLEDを制御する例です。
+
 ```csharp
 using System.Drawing;
 using System.Threading;
