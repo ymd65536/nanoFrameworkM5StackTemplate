@@ -300,6 +300,24 @@ using Iot.Device.Ip5306;
 
 I2cDevice i2cSettings = new(new I2cConnectionSettings(1, Ip5306.SecondaryI2cAddress));
 Ip5306 power = new(i2cSettings);
+
+// Configuration for M5Stack
+power.ButtonOffEnabled = true;
+power.BoostOutputEnabled = false;
+power.AutoPowerOnEnabled = true;
+power.ChargerEnabled = true;
+power.BoostEnabled = true;
+power.LowPowerOffEnabled = true;
+power.FlashLightBehavior = ButtonPress.Doubleclick;
+power.SwitchOffBoostBehavior = ButtonPress.LongPress;
+power.BoostWhenVinUnpluggedEnabled = true;
+power.ChargingUnderVoltage = ChargingUnderVoltage.V4_55;
+power.ChargingLoopSelection = ChargingLoopSelection.Vin;
+power.ConstantChargingVoltage = ConstantChargingVoltage.Vm28;
+power.ChargingCuttOffVoltage = ChargingCutOffVoltage.V4_17;
+power.LightDutyShutdownTime = LightDutyShutdownTime.S32;
+power.ChargingCutOffCurrent = ChargingCutOffCurrent.C500mA;
+power.ChargingCuttOffVoltage = ChargingCutOffVoltage.V4_2;
 ```
 
 参考
