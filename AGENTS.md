@@ -308,3 +308,45 @@ Ip5306 power = new(i2cSettings);
 - [Iot.Device.Ip5306](https://docs.nanoframework.net/devices/Iot.Device.Ip5306.Ip5306.html)
 - [IP5306 - Power management](https://github.com/nanoframework/nanoframework.IoT.Device/blob/main/devices/Ip5306/README.md/)
 - [I2cConnectionSettings クラス](https://learn.microsoft.com/ja-jp/dotnet/api/system.device.i2c.i2cconnectionsettings?view=iot-dotnet-latest)
+
+## LED(Sk6812)ユニットの使用方法
+
+M5StackのユニットにはSk6812というLEDユニットがあります。
+
+```csharp
+using System.Drawing;
+using System.Threading;
+using Iot.Device.Ws28xx.Esp32;
+using nanoFramework.M5Stack;
+using Console = nanoFramework.M5Stack.Console;
+
+// PORT BのGPIO 26を使用するように設定
+int pinNumber = 26;
+int ledCount = 3; // 接続しているLEDの数
+
+// SK6812のインスタンス作成
+// RGBモデルかRGBWモデルかに合わせてクラスを選びます
+var ledStrip = new Sk6812(pinNumber, ledCount);
+
+// 全体を赤色にする例
+// 1番目のLEDを赤、2番目を緑、3番目を青にする
+ledStrip.Image.SetPixel(0, 0, Color.Red);
+ledStrip.Image.SetPixel(1, 0, Color.Green);
+ledStrip.Image.SetPixel(2, 0, Color.Blue);
+
+// 反映
+ledStrip.Update();
+
+Color dimRed = Color.FromArgb(25, 0, 0);
+ledStrip.Image.SetPixel(0, 0, dimRed);
+ledStrip.Image.SetPixel(1, 0, dimRed);
+ledStrip.Image.SetPixel(2, 0, dimRed);
+ledStrip.Update();
+
+M5Core.InitializeScreen();
+Console.Clear();
+
+Console.WriteLine("Hello from nanoFramework!");
+Console.WriteLine("on M5Stack with Sk6812 LEDs!");
+Thread.Sleep(Timeout.Infinite);
+```
