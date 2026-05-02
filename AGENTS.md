@@ -238,6 +238,37 @@ nuget restore "c:\Users\Yamada\Desktop\NFApp2\NFApp2\NFApp2.sln"
 
 ## トラブルシューティング
 
+### M5CoreとM5Core2パッケージについて
+
+M5StackのM5Core2デバイスを使用する場合は、`nanoFramework.M5Core`パッケージを使用してください。なお、`nanoFramework.M5Stack`パッケージは廃止されています。
+
+`nanoFramework.M5Core2`を使用すると、M5Core2デバイスでビルドエラーやデプロイエラーが発生する可能性があります。M5Core2デバイスを使用する場合は、`nanoFramework.M5Core`パッケージを使用してください。
+
+### .NET nanoFrameworkのバージョン不整合
+
+.NET nanoFrameworkのバージョンがプロジェクトで使用されているバージョンと一致していない場合、ビルドやデプロイに失敗する可能性があります。
+
+M5Core2においてアセンブリのロードエラー（`Error: a3000000`）や、デプロイ後の「Assemblies count is 0」という不具合を回避するための構成案です。
+
+### 1. 動作確認済みの安定構成
+
+メジャーアップデート（v2.0.0-preview）による依存関係の混乱を避け、実績のある **v1.x 系列** で統一します。
+
+| 項目 | 指定バージョン / 値 |
+| :--- | :--- |
+| **Firmware (CLR)** | `1.16.0.568` |
+| **Native mscorlib** | `v100.5.0.24` |
+| **NuGet: CoreLibrary** | `1.17.11` |
+| **NuGet: M5Core2** | `1.1.291` (安定版) |
+
+### 2. ファームウェアの書き込み（リカバリ手順）
+
+ファームウェアを特定のバージョンにダウングレードすることで、安定した環境を構築できます。以下のコマンド例は、M5Core2にファームウェアバージョン `1.16.0.568` を書き込む方法です。
+
+```bash
+nanoff --update --target M5Core2 --fwversion 1.16.0.568 --serialport COM6 --baud 115200 --masserase
+```
+
 ### 廃止となったパッケージ
 
 2026年4月現在、`nanoFramework.M5Stack`は廃止されており、代わりに`
