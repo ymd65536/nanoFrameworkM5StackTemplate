@@ -42,7 +42,7 @@
       <HintPath>packages\nanoFramework.Iot.Device.Ws28xx.Esp32.1.2.955\lib\Iot.Device.Ws28xx.Esp32.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
-      <HintPath>packages\nanoFramework.CoreLibrary.2.0.0-preview.43\lib\netnano1.0\mscorlib.dll</HintPath>
+      <HintPath>packages\nanoFramework.CoreLibrary.1.15.5\lib\netnano1.0\mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.Graphics">
       <HintPath>packages\nanoFramework.Graphics.1.2.45\lib\nanoFramework.Graphics.dll</HintPath>

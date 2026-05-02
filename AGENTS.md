@@ -298,7 +298,7 @@ IP5306はM5Stackの電源管理ICで、バッテリーの充電や電源供給�
 using System.Device.I2c;
 using Iot.Device.Ip5306;
 
-I2cDevice i2cSettings = new(new I2cConnectionSettings(1, Ip5306.SecondaryI2cAddress));
+I2cDevice i2cSettings = new(new I2cConnectionSettings(1, Ip5306.DefaultI2cAddress));
 Ip5306 power = new(i2cSettings);
 
 // Configuration for M5Stack
