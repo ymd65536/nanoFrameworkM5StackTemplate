@@ -242,7 +242,7 @@ nuget restore "c:\Users\Yamada\Desktop\NFApp2\NFApp2\NFApp2.sln"
 
 M5StackのM5Core2デバイスを使用する場合は、`nanoFramework.M5Core`パッケージを使用してください。なお、`nanoFramework.M5Stack`パッケージは廃止されています。
 
-`nanoFramework.M5Core2`を使用すると、M5Core2デバイスでビルドエラーやデプロイエラーが発生する可能性があります。M5Core2デバイスを使用する場合は、`nanoFramework.M5Core`パッケージを使用してください。
+`nanoFramework.M5Core2`を使用すると、M5Core2デバイスでビルドエラーやデプロイエラー（`Error: a3000000`）が発生する可能性があります。M5Core2デバイスを使用する場合は、`nanoFramework.M5Core`パッケージを使用してください。
 
 ### .NET nanoFrameworkのバージョン不整合
 
